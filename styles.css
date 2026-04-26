@@ -580,9 +580,10 @@ main{ background: var(--sea);}      /* TODO main for ALL .html*/
 
 
 /* ============================ SECTION ============================ */
-.section{ 
+.section{
   padding:56px 0;
   text-align: center;
+  overflow-x: clip;
 }
 .section h2{ 
   color: var(--ink-soft); /* TODO */
