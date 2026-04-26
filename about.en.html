@@ -1,0 +1,736 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>About &amp; Routes · Nireys • Seazen Boat Rentals — Sivota</title>
+  <meta name="description" content="Suggested routes from Sivota, ideas for stops and a photo gallery — Nireys • Seazen Boat Rentals."/>
+  <link rel="icon" href="assets/logo.svg"/>
+  <link rel="stylesheet" href="styles.css"/>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&display=swap">
+
+  <style>
+    /* ===== Utility: pages without hero (fixed header offset) ===== */
+    .page-offset{
+      padding-top: var(--header-h);
+    }
+
+    /* ===================== GALLERY (About) ===================== */
+    .gallery-grid{
+      columns: 4;
+      column-gap: 14px;
+    }
+
+    .gallery-grid .g-item{
+      width: 100%;
+      display: block;
+      margin: 0 0 14px;
+
+      padding: 0;
+      border: 0;
+      background: transparent;
+
+      overflow: hidden;
+      cursor: zoom-in;
+
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .gallery-grid .g-item:focus-visible{
+      outline: 2px solid color-mix(in oklab, var(--navy), white 25%);
+      outline-offset: 3px;
+    }
+
+    .gallery-grid img{
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    @media (max-width: 900px){
+      .gallery-grid{ columns: 2; column-gap: 10px; }
+      .gallery-grid .g-item{ margin-bottom: 10px; }
+    }
+    @media (max-width: 480px){
+      .gallery-grid{ column-gap: 8px; }
+      .gallery-grid .g-item{ margin-bottom: 8px; }
+    }
+
+    /* ===================== LIGHTBOX (global, reusable) ===================== */
+    .lb-backdrop{
+      position:fixed; inset:0; z-index:2000;
+      background: rgba(0,0,0,.88);
+      display:flex; align-items:center; justify-content:center;
+    }
+    .lb-backdrop[hidden]{ display:none }
+
+    .lb-dialog{ position:relative; width:min(92vw, 1100px); }
+
+    .lb-figure{
+      position:relative;
+      background:#000;
+      border-radius:12px;
+      overflow:hidden;
+      aspect-ratio: 16/10;
+    }
+
+    .lb-figure img{
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      background:#000;
+      display:block;
+    }
+
+    .lb-close, .lb-prev, .lb-next{
+      position:absolute; top:50%; transform:translateY(-50%);
+      width:44px; height:44px; border:none; border-radius:999px; cursor:pointer;
+      display:grid; place-items:center; color:#fff; background: rgba(255,255,255,.18);
+      box-shadow:0 6px 20px rgba(0,0,0,.35);
+      backdrop-filter: blur(2px);
+    }
+
+    .lb-prev{ left:10px }
+    .lb-next{ right:10px }
+
+    .lb-close{
+      top:10px; right:10px; transform:none;
+      width:40px; height:40px;
+    }
+
+    .lb-close:hover, .lb-prev:hover, .lb-next:hover{
+      background: rgba(255,255,255,.28);
+    }
+
+    @media (max-width:640px){
+      .lb-dialog{ width:100vw }
+      .lb-figure{ aspect-ratio:auto; height: 86svh }
+    }
+
+    .sub-link{
+      display:inline-block;
+      margin-left: 10px;
+      font-weight: 800;
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(0,0,0,.25);
+    }
+
+    .sub-link:hover{
+      border-bottom-color: rgba(0,0,0,.55);
+    }
+
+    /* ===================== CHART / NAUTICAL MAP ===================== */
+    .chart-section{ padding-top: 8px; }
+
+    .chart-kicker{
+      font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .32em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      opacity: .65;
+      text-align: center;
+      margin: 0 0 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+    }
+    .chart-kicker::before,
+    .chart-kicker::after{
+      content: "";
+      width: 36px;
+      height: 1px;
+      background: currentColor;
+      opacity: .55;
+    }
+
+    .chart-section h2{ text-align: center; }
+    .chart-section .sub{ text-align: center; }
+
+    .chart-frame{
+      position: relative;
+      margin: 26px auto 18px;
+      padding: 38px;
+      background:
+        radial-gradient(120% 90% at 50% 0%, rgba(255,255,255,.04), transparent 60%),
+        linear-gradient(180deg, #0e2a3a, #06182a);
+      border-radius: 18px;
+      box-shadow:
+        0 40px 90px -32px rgba(8, 24, 42, .55),
+        0 8px 22px rgba(0, 0, 0, .10),
+        inset 0 0 0 1px rgba(255, 255, 255, .06);
+      overflow: hidden;
+    }
+
+    .chart-frame::before{
+      content: "";
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+      background-size: 28px 28px;
+      mask-image: radial-gradient(ellipse at 50% 40%, #000 55%, transparent 92%);
+      -webkit-mask-image: radial-gradient(ellipse at 50% 40%, #000 55%, transparent 92%);
+      pointer-events: none;
+    }
+
+    .chart-corner{
+      position: absolute;
+      width: 16px; height: 16px;
+      border-color: rgba(217, 206, 160, .85);
+      border-style: solid;
+      border-width: 0;
+      pointer-events: none;
+      z-index: 3;
+    }
+    .chart-corner--tl{ top: 14px; left: 14px;  border-left-width: 2px; border-top-width: 2px; }
+    .chart-corner--tr{ top: 14px; right: 14px; border-right-width: 2px; border-top-width: 2px; }
+    .chart-corner--bl{ bottom: 14px; left: 14px;  border-left-width: 2px; border-bottom-width: 2px; }
+    .chart-corner--br{ bottom: 14px; right: 14px; border-right-width: 2px; border-bottom-width: 2px; }
+
+    .chart-bar{
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      color: rgba(255, 255, 255, .82);
+      font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 11px;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+    }
+    .chart-bar--top{ margin: 0 4px 18px; }
+    .chart-bar--bot{ margin: 18px 4px 0; }
+
+    .chart-tag{
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+    }
+    .chart-tag__dot{
+      width: 8px; height: 8px;
+      border-radius: 999px;
+      background: #d9cea0;
+      box-shadow: 0 0 0 3px rgba(217, 206, 160, .15);
+    }
+    .chart-tag--strong{ color: #fff; font-weight: 700; }
+    .chart-tag__sub{
+      color: rgba(255,255,255,.5);
+      font-weight: 400;
+      letter-spacing: .18em;
+    }
+
+    .chart-compass{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 18px; height: 18px;
+      color: #d9cea0;
+    }
+
+    .chart-image{
+      position: relative;
+      z-index: 1;
+      display: block;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      background: #07182a;
+      border: 1px solid rgba(255, 255, 255, .08);
+      border-radius: 8px;
+      overflow: hidden;
+      cursor: zoom-in;
+      -webkit-tap-highlight-color: transparent;
+      box-shadow:
+        inset 0 0 0 1px rgba(0, 0, 0, .35),
+        0 18px 40px -22px rgba(0, 0, 0, .55);
+    }
+
+    .chart-image img{
+      display: block;
+      width: 100%;
+      height: auto;
+      transition: transform .7s cubic-bezier(.2, .7, .2, 1);
+    }
+
+    .chart-image:hover img,
+    .chart-image:focus-visible img{ transform: scale(1.018); }
+
+    .chart-image:focus-visible{
+      outline: 2px solid color-mix(in oklab, var(--wheat), white 20%);
+      outline-offset: 4px;
+    }
+
+    .chart-zoom{
+      position: absolute;
+      bottom: 14px; right: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 13px;
+      border-radius: 999px;
+      background: rgba(7, 24, 42, .82);
+      color: #fff;
+      font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      border: 1px solid rgba(217, 206, 160, .35);
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity .25s ease, transform .25s ease;
+      pointer-events: none;
+    }
+    .chart-zoom svg{ width: 12px; height: 12px; }
+    .chart-image:hover .chart-zoom,
+    .chart-image:focus-visible .chart-zoom{
+      opacity: 1;
+      transform: translateY(0);
+    }
+    @media (hover: none){
+      .chart-zoom{ opacity: 1; transform: none; }
+    }
+
+    .chart-legend{
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px 26px;
+      margin: 14px auto 0;
+      padding: 0;
+      font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 11px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+    .chart-legend li{
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+    }
+    .chart-legend__line{
+      display: inline-block;
+      width: 30px; height: 2px;
+      background-image: linear-gradient(90deg, var(--navy) 0 6px, transparent 6px 12px);
+      background-size: 12px 2px;
+      background-repeat: repeat-x;
+    }
+    .chart-legend__pin{
+      width: 10px; height: 10px; border-radius: 999px;
+      background: var(--navy);
+      box-shadow: 0 0 0 3px rgba(14, 42, 58, .12);
+    }
+    .chart-legend__warn{
+      width: 16px; height: 16px;
+      display: inline-flex; align-items: center; justify-content: center;
+      color: #b1442b;
+      font-size: 13px;
+    }
+
+    @media (max-width: 720px){
+      .chart-frame{ padding: 26px 18px; border-radius: 16px; }
+      .chart-bar{ font-size: 10px; letter-spacing: .18em; }
+      .chart-bar--top, .chart-bar--bot{ margin-left: 0; margin-right: 0; }
+      .chart-corner{ width: 12px; height: 12px; }
+      .chart-corner--tl, .chart-corner--tr{ top: 10px; }
+      .chart-corner--bl, .chart-corner--br{ bottom: 10px; }
+      .chart-corner--tl, .chart-corner--bl{ left: 10px; }
+      .chart-corner--tr, .chart-corner--br{ right: 10px; }
+      .chart-tag__sub{ display: none; }
+    }
+    @media (max-width: 480px){
+      .chart-bar{ flex-direction: column; align-items: flex-start; gap: 6px; letter-spacing: .14em; }
+      .chart-bar--top .chart-tag:last-child,
+      .chart-bar--bot .chart-tag:last-child{ align-self: flex-end; }
+      .chart-zoom{ font-size: 9px; padding: 7px 10px; }
+      .chart-legend{ font-size: 10px; gap: 8px 18px; }
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <!-- ===== Header ===== -->
+  <header class="site-header">
+    <div class="container nav" id="nav">
+      <a href="index.en.html" class="brand">
+        <img src="assets/logo.svg" alt="Nireys • Seazen logo" class="brand-logo"/>
+        <div class="brand-title">Nireys • Seazen</div>
+      </a>
+      <button class="mobile-toggle" aria-label="Menu">☰</button>
+      <ul>
+        <li><a href="fleet.en.html">Fleet</a></li>
+        <li><a href="about.en.html" aria-current="page">About</a></li>
+        <li><a href="contact.en.html">Contact</a></li>
+      </ul>
+      <a class="lang-toggle" href="about.html" hreflang="el" aria-label="Μετάβαση στα ελληνικά">
+        <svg class="lang-toggle__globe" viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          <path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18" fill="none" stroke="currentColor" stroke-width="1.6"/>
+        </svg>
+        EL
+      </a>
+    </div>
+  </header>
+
+  <main class="page page-offset">
+
+
+    <section class="section routes" aria-labelledby="routes-title">
+      <div class="container">
+        <h2 id="routes-title">Suggested Routes</h2>
+        <p class="sub">
+          Sample itineraries — we'll tailor your own with the stops you choose.
+          <a class="sub-link" href="#gallery">See photos</a>
+        </p>
+
+
+        <div class="route-grid">
+
+          <!-- Sivota 8h -->
+          <article class="route-card">
+            <header class="route-head">
+              <h3>Sivota</h3>
+              <span class="route-badge">8 hr</span>
+            </header>
+
+            <div class="route-cols" aria-label="Stops">
+              <div class="route-col">
+                <div class="route-item">Plakes</div>
+                <div class="route-item">Pisina</div>
+                <div class="route-item">Diapori</div>
+                <div class="route-item">Bella Vraka</div>
+                <div class="route-item">Sea Cave</div>
+                <div class="route-item">Petalo</div>
+              </div>
+              <div class="route-col">
+                <div class="route-item">Mega Ammos</div>
+                <div class="route-item">Mikri Ammos</div>
+                <div class="route-item">Mega Drafi</div>
+                <div class="route-item">Mikro Drafi</div>
+                <div class="route-item">Agia Paraskevi</div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Sivota 4h -->
+          <article class="route-card">
+            <header class="route-head">
+              <h3>Sivota</h3>
+              <span class="route-badge">4 hr</span>
+            </header>
+
+            <div class="route-cols single" aria-label="Stops">
+              <div class="route-col">
+                <div class="route-item">Plakes</div>
+                <div class="route-item">Pisina</div>
+                <div class="route-item">Diapori</div>
+                <div class="route-item">Sea Cave</div>
+                <div class="route-item">Bella Vraka</div>
+                <div class="route-item">Petalo</div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Paxos 8h -->
+          <article class="route-card">
+            <header class="route-head">
+              <h3>Paxos</h3>
+              <span class="route-badge">8 hr</span>
+            </header>
+
+            <div class="route-split">
+              <div>
+                <div class="route-kicker">Paxos</div>
+                <div class="route-cols single">
+                  <div class="route-col">
+                    <div class="route-item">Lakka</div>
+                    <div class="route-item">Blue Caves</div>
+                    <div class="route-item">Vrika (Antipaxos)</div>
+                    <div class="route-item">Voutoumi (Antipaxos)</div>
+                    <div class="route-item">Kaltsonisi</div>
+                    <div class="route-item">Gaios</div>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <div class="route-kicker">Return (Sivota)</div>
+                <div class="route-cols single">
+                  <div class="route-col">
+                    <div class="route-item">Sea Caves</div>
+                    <div class="route-item">Diapori</div>
+                    <div class="route-item">Bella Vraka</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Paxos 4h -->
+          <article class="route-card">
+            <header class="route-head">
+              <h3>Paxos</h3>
+              <span class="route-badge">4 hr</span>
+            </header>
+
+            <div class="route-cols single" aria-label="Stops">
+              <div class="route-col">
+                <div class="route-item">Vrika (Antipaxos)</div>
+                <div class="route-item">Voutoumi (Antipaxos)</div>
+                <div class="route-item">Kaltsonisi</div>
+                <div class="route-item">Gaios</div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Corfu Tour -->
+          <article class="route-card route-card--center">
+            <header class="route-head">
+              <h3>Corfu</h3>
+              <span class="route-badge">Tour</span>
+            </header>
+
+            <div class="route-cols single" aria-label="Information">
+              <div class="route-col">
+                <div class="route-item">
+                  <a href="contact.en.html">Get in touch</a> for a personalised quote.
+                </div>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+
+
+
+    <!-- Separator -->
+    <div class="separator"></div>
+
+    <!-- ===== Nautical Chart / Map ===== -->
+    <section class="section chart-section" aria-labelledby="chart-title">
+      <div class="container">
+        <p class="chart-kicker">Nautical Chart · Sivota — Paxos</p>
+        <h2 id="chart-title">All routes, on one chart</h2>
+        <p class="sub">
+          Stops, safe routes and warning points across the Ionian.
+          <span style="display:inline-block; margin-left:6px; opacity:.8;">Tap the chart to enlarge.</span>
+        </p>
+
+        <figure class="chart-frame" id="chartFrame">
+          <span class="chart-corner chart-corner--tl" aria-hidden="true"></span>
+          <span class="chart-corner chart-corner--tr" aria-hidden="true"></span>
+          <span class="chart-corner chart-corner--bl" aria-hidden="true"></span>
+          <span class="chart-corner chart-corner--br" aria-hidden="true"></span>
+
+          <div class="chart-bar chart-bar--top">
+            <span class="chart-tag chart-tag--strong">
+              <span class="chart-tag__dot" aria-hidden="true"></span>
+              Chart · Nireys
+            </span>
+            <span class="chart-tag">
+              39°24′N · 20°14′E
+              <span class="chart-tag__sub">Ionian Sea</span>
+            </span>
+          </div>
+
+          <button class="chart-image" type="button" id="chartOpen" aria-label="Open enlarged chart">
+            <img src="img/Sivota_Map_HR.jpg"
+                 alt="Sivota — Paxos route chart with stops and safety points"
+                 loading="lazy" decoding="async">
+            <span class="chart-zoom" aria-hidden="true">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/>
+                <path d="M16 16l5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M8 11h6M11 8v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+              </svg>
+              Enlarge
+            </span>
+          </button>
+
+          <div class="chart-bar chart-bar--bot">
+            <span class="chart-tag">Sivota — Paxos</span>
+            <span class="chart-tag">
+              <span class="chart-compass" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="14" height="14">
+                  <path d="M12 2 14 10 22 12 14 14 12 22 10 14 2 12 10 10z" fill="currentColor"/>
+                </svg>
+              </span>
+              N ↑ · Scale Indicative
+            </span>
+          </div>
+        </figure>
+
+        <ul class="chart-legend" aria-label="Chart legend">
+          <li><span class="chart-legend__line" aria-hidden="true"></span> Route</li>
+          <li><span class="chart-legend__pin" aria-hidden="true"></span> Stop</li>
+          <li><span class="chart-legend__warn" aria-hidden="true">⚠</span> Reef / No anchoring</li>
+        </ul>
+      </div>
+    </section>
+
+    <div class="separator"></div>
+
+    <section class="section gallery" aria-labelledby="gallery-title" id="gallery">
+      <div class="container">
+        <h2 id="gallery-title">Gallery</h2>
+        <p class="sub">A small taste of the waters &amp; stops around Sivota.</p>
+
+        <div class="gallery-grid" data-lightbox="gallery">
+          <button class="g-item" type="button">
+            <img src="img/sivota/sivota (1).jpg" alt="Sivota — photo 1" loading="lazy" decoding="async">
+          </button>
+          <button class="g-item" type="button">
+            <img src="img/sivota/sivota (2).jpg" alt="Sivota — photo 2" loading="lazy" decoding="async">
+          </button>
+          <button class="g-item" type="button">
+            <img src="img/sivota/sivota (3).jpg" alt="Sivota — photo 3" loading="lazy" decoding="async">
+          </button>
+          <button class="g-item" type="button">
+            <img src="img/sivota/sivota (4).jpg" alt="Sivota — photo 4" loading="lazy" decoding="async">
+          </button>
+          <button class="g-item" type="button">
+            <img src="img/sivota/sivota (5).jpg" alt="Sivota — photo 5" loading="lazy" decoding="async">
+          </button>
+          <button class="g-item" type="button">
+            <img src="img/sivota/sivota (6).jpg" alt="Sivota — photo 6" loading="lazy" decoding="async">
+          </button>
+          <button class="g-item" type="button">
+            <img src="img/sivota/sivota (7).jpg" alt="Sivota — photo 7" loading="lazy" decoding="async">
+          </button>
+          <button class="g-item" type="button">
+            <img src="img/sivota/sivota (8).jpg" alt="Sivota — photo 8" loading="lazy" decoding="async">
+          </button>
+          <button class="g-item" type="button">
+            <img src="img/sivota/sivota (9).jpg" alt="Sivota — photo 9" loading="lazy" decoding="async">
+          </button>
+          <button class="g-item" type="button">
+            <img src="img/sivota/sivota (10).jpg" alt="Sivota — photo 10" loading="lazy" decoding="async">
+          </button>
+          <button class="g-item" type="button">
+            <img src="img/sivota/sivota (11).jpg" alt="Sivota — photo 11" loading="lazy" decoding="async">
+          </button>
+          <button class="g-item" type="button">
+            <img src="img/sivota/sivota (12).jpg" alt="Sivota — photo 12" loading="lazy" decoding="async">
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer" aria-label="Footer">
+    <div class="container">
+
+      <div class="footer-inner">
+
+        <!-- Brand / short intro -->
+        <div class="footer-col footer-col--brand">
+          <a class="footer-logo" href="index.en.html" aria-label="Nireys • Seazen Boat Rentals (About)">
+            <img src="assets/logo.svg" alt="Nireys • Seazen logo">
+            <span>Nireys • Seazen Boat Rentals</span>
+          </a>
+
+          <p class="footer-tagline">
+            Boat rentals &amp; private cruises in Sivota — easy, safe, unforgettable.
+          </p>
+
+          <div class="socials" aria-label="Social media">
+            <a href="https://www.instagram.com/seazenboats?igsh=MXNxYzJ4a2Ezd3Y5dg==" target="_blank" rel="noopener" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <rect x="6" y="6" width="12" height="12" rx="3" stroke="currentColor" stroke-width="1.8"/>
+                <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.8"/>
+                <circle cx="16.2" cy="7.8" r="1" fill="currentColor"/>
+              </svg>
+            </a>
+
+            <a href="https://www.tiktok.com/@seazenboats?_t=8lZWLbHML3J&_r=1" target="_blank" rel="noopener" aria-label="TikTok">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path fill="currentColor" d="M16.7 3c.4 3 2.2 4.8 5.3 5.1v3.2c-1.9.1-3.6-.5-5.2-1.7v7.3c0 4.1-3.3 7.1-7.4 7.1-4.3 0-7.4-3.4-7.4-7.5 0-4.1 3.2-7.5 7.6-7.5.5 0 1 .1 1.5.2v3.5c-.5-.2-1-.4-1.6-.4-2.2 0-4 1.8-4 4.1s1.8 4.1 4 4.1c2.3 0 3.9-1.5 4-4.1V3h3.2Z"/>
+              </svg>
+            </a>
+
+            <a href="https://www.facebook.com/nireysyachting" target="_blank" rel="noopener" aria-label="Facebook">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path fill="currentColor" d="M13.6 21v-7h2.3l.4-2.7h-2.7V9.6c0-.8.2-1.3 1.3-1.3H16V5.9c-.2 0-1.3-.1-2.5-.1-2.4 0-4 1.5-4 4.2v1.3H7.2V14h2.3v7h4.1Z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Links -->
+        <nav class="footer-col footer-col--links" aria-label="Quick links">
+          <div class="footer-title">Links</div>
+          <ul class="footer-list">
+            <li><a href="fleet.en.html">Fleet</a></li>
+            <li><a href="about.en.html">About</a></li>
+            <li><a href="contact.en.html">Contact</a></li>
+            <li><a href="safety.en.html">Safety</a></li>
+            <li><a href="terms.en.html">Terms &amp; Conditions</a></li>
+          </ul>
+        </nav>
+
+        <!-- Contact -->
+        <div class="footer-col footer-col--contact">
+          <div class="footer-title">Contact</div>
+          <ul class="footer-list">
+            <li><a href="tel:+306934131116">Tel: 693 4131 116</a></li>
+            <li><a href="tel:+306955564733">Tel: 695 5564 733</a></li>
+            <li><a href="https://wa.me/306955564733" target="_blank" rel="noopener">WhatsApp: <span style="white-space:nowrap">695 5564 733</span></a></li>
+            <li><a href="mailto:seazenboats@gmail.com">seazenboats@gmail.com</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <div>© 2025 Nireys • Seazen Boat Rentals — Sivota</div>
+        <div class="footer-legal">
+          <a href="safety.en.html">Safety</a>
+          <span aria-hidden="true">•</span>
+          <a href="terms.en.html">Terms &amp; Conditions</a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <script src="scripts/scripts.js"></script>
+  <script>
+    (function(){
+      var btn = document.getElementById('chartOpen');
+      if (!btn) return;
+      btn.addEventListener('click', function(){
+        var img = btn.querySelector('img');
+        if (!img) return;
+        var open = window.Nireus && window.Nireus.openLightbox;
+        if (typeof open === 'function'){
+          open([{ src: img.currentSrc || img.src, alt: img.alt || '' }], 0);
+        } else {
+          window.open(img.currentSrc || img.src, '_blank', 'noopener');
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

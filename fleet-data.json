@@ -1,0 +1,139 @@
+{
+  "speedboats": [
+    {
+      "name": "Futura",
+      "length": "6.5m",
+      "people": 10,
+      "hp": "150hp",
+      "images": [
+        { "src": "img/Futura1.jpg", "alt": "Futura 6.5m 150hp front" },
+        { "src": "img/Futura2.jpg", "alt": "Futura 6.5m 150hp back" },
+        { "src": "img/Futura1.jpg", "alt": "Futura 6.5m 150hp 4-stroke" }
+      ],
+      "features": [
+        "Yamaha 4-stroke",
+        "Μουσικό σύστημα",
+        "Ντους",
+        "GPS Garmin",
+        "Υδραυλικό τιμόνι",
+        "Ηλεκτρική άγκυρα"
+      ]
+    },
+    {
+      "name": "Jolly",
+      "length": "6m",
+      "people": 10,
+      "hp": "115hp",
+      "images": [
+        { "src": "img/Jolly1.jpg", "alt": "Jolly 6m 115hp side" },
+        { "src": "img/Jolly2.jpg", "alt": "Jolly 6m 115hp side zoom" },
+        { "src": "img/Jolly3.jpg", "alt": "Jolly 6m 115hp front" }
+      ],
+      "features": [
+        "Yamaha 4-stroke",
+        "Μουσικό σύστημα",
+        "Ντους",
+        "GPS Garmin",
+        "Υδραυλικό τιμόνι"
+      ]
+    },
+    {
+      "name": "Callegary",
+      "length": "7m",
+      "people": 10,
+      "hp": "150hp",
+      "images": [
+        { "src": "img/Callegary1.jpg", "alt": "Callegary 7m 150hp back" },
+        { "src": "img/Callegary2.jpg", "alt": "Callegary 7m 150hp side" },
+        { "src": "img/Callegary3.jpg", "alt": "Callegary 7m 150hp zoomed side" }
+      ],
+      "features": [
+        "Yamaha 4-stroke",
+        "Μουσικό σύστημα",
+        "Ντους",
+        "GPS Garmin",
+        "Υδραυλικό τιμόνι",
+        "Ηλεκτρική άγκυρα"
+      ]
+    },
+    {
+      "name": "Joker Clubman 24",
+      "length": "7.5m",
+      "people": 12,
+      "hp": "250hp",
+      "images": [
+        { "src": "img/JokerClubman1.jpg", "alt": "Joker Clubman 24 7.5m 250hp back-side" },
+        { "src": "img/JokerClubman2.jpg", "alt": "Joker Clubman 24 7.5m 250hp front" },
+        { "src": "img/JokerClubman3.jpg", "alt": "Joker Clubman 24 7.5m 250hp back-zoomed" }
+      ],
+      "features": [
+        "Mercury Verado 4-stroke",
+        "Μουσικό σύστημα",
+        "Ντους",
+        "GPS Garmin",
+        "Υδραυλικό τιμόνι",
+        "Ηλεκτρική άγκυρα"
+      ]
+    }
+  ],
+  "licenceFree": [
+    {
+      "name": "KARELAKI",
+      "length": "4m",
+      "people": 2,
+      "hp": "25hp",
+      "images": [
+        { "src": "img/Karelaki3.jpg", "alt": "KARELAKI 4m 25hp back" }
+      ],
+      "features": [
+        "Tohachu 4-stroke",
+        "Μουσικό σύστημα"
+      ]
+    },
+    {
+      "name": "Assos",
+      "length": "4.55m",
+      "people": 5,
+      "hp": "30hp",
+      "images": [
+        { "src": "img/Asso_1.jpg", "alt": "Assos 4.55m 30hp side" },
+        { "src": "img/Asso_2.jpg", "alt": "Assos 4.55m 30hp above pov" },
+        { "src": "img/Asso_3.jpg", "alt": "Assos 4.55m 30hp back" }
+      ],
+      "features": [
+        "Suzuki 4-stroke",
+        "Μουσικό σύστημα"
+      ]
+    },
+    {
+      "name": "KARELAS",
+      "length": "5m",
+      "people": 6,
+      "hp": "30hp",
+      "images": [
+        { "src": "img/Karelas1.jpg", "alt": "KARELAS 5m 30hp front" },
+        { "src": "img/Karelas2.jpg", "alt": "KARELAS 5m 30hp side" },
+        { "src": "img/Karelas3.jpg", "alt": "KARELAS 5m 30hp back" }
+      ],
+      "features": [
+        "Yamaha 4-stroke",
+        "Μουσικό σύστημα",
+        "Υδραυλικό τιμόνι"
+      ]
+    },
+    {
+      "name": "Nireas",
+      "length": "5.6m",
+      "people": 7,
+      "hp": "30hp",
+      "images": [
+        { "src": "img/Nireas_1.jpg", "alt": "Nireas 5 5.6m 30hp" }
+      ],
+      "features": [
+        "Yamaha 4-stroke",
+        "Μουσικό σύστημα",
+        "Υδραυλικό τιμόνι"
+      ]
+    }
+  ]
+}

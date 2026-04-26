@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Home · Nireys • Seazen Boat Rentals — Sivota</title>
+  <meta name="description" content="Nireys • Seazen Boat Rentals — Boat rentals in Sivota, Greece."/>
+  <link rel="icon" href="assets/logo.svg"/>
+
+  <!-- Google Font: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container nav" id="nav">
+      <a href="index.en.html" class="brand">
+        <img src="assets/logo.svg" alt="Nireys • Seazen logo" class="brand-logo"/>
+        <div class="brand-title">Nireys • Seazen</div>
+      </a>
+      <button class="mobile-toggle" aria-label="Menu">☰</button>
+      <ul>
+        <li><a href="fleet.en.html">Fleet</a></li>
+        <li><a href="about.en.html">About</a></li>
+        <li><a href="contact.en.html">Contact</a></li>
+      </ul>
+      <a class="lang-toggle" href="index.html" hreflang="el" aria-label="Μετάβαση στα ελληνικά">
+        <svg class="lang-toggle__globe" viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          <path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18" fill="none" stroke="currentColor" stroke-width="1.6"/>
+        </svg>
+        EL
+      </a>
+    </div>
+  </header>
+
+
+  <section class="hero hero-with-video">
+    <div class="hero-video-wrap" aria-hidden="true">
+      <video class="hero-video"
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="metadata"
+            poster="img/hero_poster.jpg">
+        <source src="video/Hero.webm" type="video/webm"/>
+        <source src="video/Hero.mp4" type="video/mp4"/>
+        Your browser does not support video.
+      </video>
+      <div class="hero-overlay"></div>
+    </div>
+
+    <div class="container wrap hero-content">
+      <div>
+        <div class="kicker">Sivota • Thesprotia</div>
+        <h1>Boat Rentals &amp; Private Cruises</h1>
+        <p class="lead">
+          No license required, with full equipment and dedicated support. Our team takes you
+          to quiet coves with turquoise waters, sea caves and small islands.
+        </p>
+        <div class="cta">
+          <a href="contact.en.html" class="btn btn-primary">Book / Availability</a>
+          <a href="about.en.html" class="btn btn-ghost">Routes &amp; Map</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <!-- Wave + boat separator -->
+    <div class="wave-sep" aria-hidden="true">
+      <svg viewBox="0 0 1200 120" preserveAspectRatio="none" role="img" aria-label="Wave with boat">
+        <g class="wave-slide">
+          <path class="wave-path"
+                d="M0 60 C150 20 300 100 450 60 S750 20 900 60 S1050 100 1200 60 L1200 120 L0 120 Z"/>
+          <g id="boat" transform="translate(600,44)">
+            <ellipse cx="0" cy="22" rx="24" ry="4" fill="#000000" opacity="0.10"/>
+            <path d="M-28 18 C -18 28, 18 28, 28 18 L -28 18 Z" fill="#FFFFFF"/>
+            <path d="M-2 6 L 12 6 L 8 14 L -2 14 Z" fill="#FFFFFF"/>
+            <path d="M10 6 L 8 14" stroke="#000000" stroke-opacity="0.15" stroke-width="1"/>
+            <path d="M-28 18 C -18 28, 18 28, 28 18" fill="none" stroke="#000000" stroke-opacity="0.12" stroke-width="1"/>
+          </g>
+        </g>
+      </svg>
+    </div>
+
+    <section id="services" class="section" itemscope itemtype="https://schema.org/ItemList" aria-labelledby="services-title">
+      <div class="container">
+        <h2 id="services-title">Services</h2>
+
+        <meta itemprop="numberOfItems" content="4" />
+        <div class="cards">
+
+          <!-- 1) License-free -->
+          <article class="card" itemprop="itemListElement" itemscope itemtype="https://schema.org/Service">
+            <img class="bg" src="img/Karelas1.jpg" alt="" loading="lazy" decoding="async">
+            <div class="body">
+              <h3 itemprop="name">License-free boat rentals</h3>
+              <p class="muted" itemprop="description">10-min orientation &amp; clear navigation guidance (up to 30hp).</p>
+            </div>
+            <div class="actions">
+              <a href="fleet.en.html" class="btn btn-ghost" aria-label="Go to: License-free rentals">View fleet</a>
+            </div>
+            <meta itemprop="alternateName" content="License-free boat rentals"/>
+          </article>
+
+          <!-- 2) Licensed speedboats -->
+          <article class="card" itemprop="itemListElement" itemscope itemtype="https://schema.org/Service">
+            <img class="bg" src="img/Jolly3.jpg" alt="" loading="lazy" decoding="async">
+            <div class="body">
+              <h3 itemprop="name">Licensed speedboat rentals</h3>
+              <p class="muted" itemprop="description">Powerful boats (over 30hp).</p>
+            </div>
+            <div class="actions">
+              <a href="fleet.en.html" class="btn btn-ghost" aria-label="Go to: Licensed speedboats">View fleet</a>
+            </div>
+            <meta itemprop="alternateName" content="Licensed speedboat rentals"/>
+          </article>
+
+          <!-- 3) Private cruises -->
+          <article class="card" itemprop="itemListElement" itemscope itemtype="https://schema.org/Service">
+            <img class="bg" src="img/Callegary1.jpg" alt="" loading="lazy" decoding="async">
+            <div class="body">
+              <h3 itemprop="name">Private cruises with skipper</h3>
+              <p class="muted" itemprop="description">Guided tour &amp; hidden spots around Sivota.</p>
+            </div>
+            <div class="actions">
+              <a href="contact.en.html" class="btn btn-ghost" aria-label="Go to: Contact">Availability</a>
+            </div>
+            <meta itemprop="alternateName" content="Private cruises"/>
+          </article>
+
+          <!-- 4) Sunset tours -->
+          <article class="card" itemprop="itemListElement" itemscope itemtype="https://schema.org/Service">
+            <img class="bg" src="img/sivota/golden_hour.jpg" alt="" loading="lazy" decoding="async">
+            <div class="body">
+              <h3 itemprop="name">Sunset Tours</h3>
+              <p class="muted" itemprop="description">Golden hour &amp; photo stops along the coast.</p>
+            </div>
+            <div class="actions">
+              <a href="about.en.html" class="btn btn-ghost" aria-label="Go to: Sunset Tours">See route</a>
+            </div>
+            <meta itemprop="alternateName" content="Sunset in Sivota"/>
+          </article>
+
+        </div>
+
+        <button class="srv-nav srv-prev" aria-label="Previous" id="srvPrev" type="button">
+          <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M15.5 3.5 7 12l8.5 8.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+
+        <button class="srv-nav srv-next" aria-label="Next" id="srvNext" type="button">
+          <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M8.5 3.5 17 12l-8.5 8.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+
+      </div>
+    </section>
+
+
+    <!-- Separator -->
+    <div class="separator"></div>
+
+    <section id="why" class="section" aria-labelledby="trust-title">
+      <div class="container">
+        <h2 id="trust-title" style="text-align:center">What sets us apart</h2>
+        <div class="prose">
+        <p>
+          In Sivota since 1993, we make boat rental simple and safe.
+          With a <strong>10-minute orientation</strong>, <strong>fully equipped license-free boats</strong>
+          or private cruises with an <strong>experienced skipper</strong>.
+        </p>
+        <p>
+          Set off with ease, sail with confidence, return with memories.
+        </p>
+        <p>
+          Our team gives you <strong>recommended routes</strong>, safe anchorages and points to avoid,
+          and stays on call while you're on the water.
+        </p>
+        <p>
+          Whether you're at the helm or you'd rather have one of our skippers guide you,
+          you'll discover <strong>hidden beaches, sea caves and small islands</strong> in comfort —
+          and come back with stories worth telling.
+        </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Separator -->
+    <div class="separator"></div>
+
+    <!-- FAQ (SEO + compact dropdown) -->
+    <section id="faq" class="section faq" aria-labelledby="faq-title">
+      <div class="container">
+        <h2 id="faq-title">Frequently Asked Questions</h2>
+        <p class="sub">Quick answers about boat rentals in Sivota.</p>
+
+        <div class="faq-list" role="list">
+          <details class="faq-item" role="listitem">
+            <summary>Do I need a license to rent a boat in Sivota?</summary>
+            <div class="faq-a">
+              <p>No license is required for boats up to 30hp — before departure you'll receive a short orientation and navigation instructions. A speedboat license is required for higher-powered boats.</p>
+            </div>
+          </details>
+
+          <details class="faq-item" role="listitem">
+            <summary>What's included in the rental?</summary>
+            <div class="faq-a">
+              <p>Pickup/drop-off, basic safety equipment and a briefing on routes, anchorages and points to watch out for. For per-boat details, see the fleet or just ask us.</p>
+            </div>
+          </details>
+
+          <details class="faq-item" role="listitem">
+            <summary>How many people fit in the boat?</summary>
+            <div class="faq-a">
+              <p>It depends on the model. On the “Fleet” page you'll see each boat's capacity, and we'll suggest the right one for your group.</p>
+            </div>
+          </details>
+
+          <details class="faq-item" role="listitem">
+            <summary>How do I book / check availability?</summary>
+            <div class="faq-a">
+              <p>Send us your date, group size, and whether you have a license (or want a skipper) and we'll suggest available options.</p>
+            </div>
+          </details>
+
+          <details class="faq-item" role="listitem">
+            <summary>Is fuel included?</summary>
+            <div class="faq-a">
+              <p>Fuel is usually charged separately, depending on use/route. We'll explain everything precisely before you head out.</p>
+            </div>
+          </details>
+
+          <details class="faq-item" role="listitem">
+            <summary>Can I book a private cruise with a skipper?</summary>
+            <div class="faq-a">
+              <p>Yes — ideal if you want a relaxed experience and local guidance to beaches, caves and small islands, without driving the boat yourself.</p>
+            </div>
+          </details>
+
+          <details class="faq-item" role="listitem">
+            <summary>What should I bring?</summary>
+            <div class="faq-a">
+              <p>Sunscreen, a hat, water, a towel and a light jacket for the late afternoon. For kids, we always recommend a life jacket.</p>
+            </div>
+          </details>
+
+          <details class="faq-item" role="listitem">
+            <summary>What happens in strong winds or bad weather?</summary>
+            <div class="faq-a">
+              <p>Safety comes first. If conditions aren't suitable, we'll suggest changing the time/date or taking an alternative route in more sheltered spots.</p>
+            </div>
+          </details>
+        </div>
+
+        <!-- FAQ Schema (JSON-LD) -->
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Do I need a license to rent a boat in Sivota?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No license is required for boats up to 30hp — before departure you'll receive a short orientation and navigation instructions. A speedboat license is required for higher-powered boats."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What's included in the rental?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Pickup/drop-off, basic safety equipment and a briefing on routes, anchorages and points to watch out for. For per-boat details, see the fleet or just ask us."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How many people fit in the boat?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "It depends on the model. On the “Fleet” page you'll see each boat's capacity, and we'll suggest the right one for your group."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How do I book / check availability?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Send us your date, group size, and whether you have a license (or want a skipper) and we'll suggest available options."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Is fuel included?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Fuel is usually charged separately, depending on use/route. We'll explain everything precisely before you head out."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Can I book a private cruise with a skipper?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes — ideal if you want a relaxed experience and local guidance to beaches, caves and small islands, without driving the boat yourself."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What should I bring?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Sunscreen, a hat, water, a towel and a light jacket for the late afternoon. For kids, we always recommend a life jacket."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What happens in strong winds or bad weather?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Safety comes first. If conditions aren't suitable, we'll suggest changing the time/date or taking an alternative route in more sheltered spots."
+              }
+            }
+          ]
+        }
+        </script>
+      </div>
+    </section>
+
+
+
+
+  </main>
+
+  <footer class="footer" aria-label="Footer">
+    <div class="container">
+
+      <div class="footer-inner">
+
+        <!-- Brand / short intro -->
+        <div class="footer-col footer-col--brand">
+          <a class="footer-logo" href="index.en.html" aria-label="Nireys • Seazen Boat Rentals (Home)">
+            <img src="assets/logo.svg" alt="Nireys • Seazen logo">
+            <span>Nireys • Seazen Boat Rentals</span>
+          </a>
+
+          <p class="footer-tagline">
+            Boat rentals &amp; private cruises in Sivota — easy, safe, unforgettable.
+          </p>
+
+          <div class="socials" aria-label="Social media">
+            <a href="https://www.instagram.com/seazenboats?igsh=MXNxYzJ4a2Ezd3Y5dg==" target="_blank" rel="noopener" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <rect x="6" y="6" width="12" height="12" rx="3" stroke="currentColor" stroke-width="1.8"/>
+                <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.8"/>
+                <circle cx="16.2" cy="7.8" r="1" fill="currentColor"/>
+              </svg>
+            </a>
+
+            <a href="https://www.tiktok.com/@seazenboats?_t=8lZWLbHML3J&_r=1" target="_blank" rel="noopener" aria-label="TikTok">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path fill="currentColor" d="M16.7 3c.4 3 2.2 4.8 5.3 5.1v3.2c-1.9.1-3.6-.5-5.2-1.7v7.3c0 4.1-3.3 7.1-7.4 7.1-4.3 0-7.4-3.4-7.4-7.5 0-4.1 3.2-7.5 7.6-7.5.5 0 1 .1 1.5.2v3.5c-.5-.2-1-.4-1.6-.4-2.2 0-4 1.8-4 4.1s1.8 4.1 4 4.1c2.3 0 3.9-1.5 4-4.1V3h3.2Z"/>
+              </svg>
+            </a>
+
+            <a href="https://www.facebook.com/nireysyachting" target="_blank" rel="noopener" aria-label="Facebook">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path fill="currentColor" d="M13.6 21v-7h2.3l.4-2.7h-2.7V9.6c0-.8.2-1.3 1.3-1.3H16V5.9c-.2 0-1.3-.1-2.5-.1-2.4 0-4 1.5-4 4.2v1.3H7.2V14h2.3v7h4.1Z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Links -->
+        <nav class="footer-col footer-col--links" aria-label="Quick links">
+          <div class="footer-title">Links</div>
+          <ul class="footer-list">
+            <li><a href="fleet.en.html">Fleet</a></li>
+            <li><a href="about.en.html">About</a></li>
+            <li><a href="contact.en.html">Contact</a></li>
+            <li><a href="safety.en.html">Safety</a></li>
+            <li><a href="terms.en.html">Terms &amp; Conditions</a></li>
+          </ul>
+        </nav>
+
+        <!-- Contact -->
+        <div class="footer-col footer-col--contact">
+          <div class="footer-title">Contact</div>
+          <ul class="footer-list">
+            <li><a href="tel:+306934131116">Tel: 693 4131 116</a></li>
+            <li><a href="tel:+306955564733">Tel: 695 5564 733</a></li>
+            <li><a href="https://wa.me/306955564733" target="_blank" rel="noopener">WhatsApp: <span style="white-space:nowrap">695 5564 733</span></a></li>
+            <li><a href="mailto:seazenboats@gmail.com">seazenboats@gmail.com</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <div>© 2025 Nireys • Seazen Boat Rentals — Sivota</div>
+        <div class="footer-legal">
+          <a href="safety.en.html">Safety</a>
+          <span aria-hidden="true">•</span>
+          <a href="terms.en.html">Terms &amp; Conditions</a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+
+  <script src="scripts/scripts.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="el">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Στόλος · Nireys • Seazen Boat Rentals — Σύβοτα</title>
+  <meta name="description" content="Σκάφη Nireys • Seazen — Ταχύπλοα και σκάφη χωρίς δίπλωμα στα Σύβοτα."/>
+  <link rel="icon" href="assets/logo.svg"/>
+  <link rel="stylesheet" href="styles.css"/>
+  <style>
+    /* Μικρά βοηθητικά για το flicker/tabs */
+    .hidden{ display:none !important }
+    .tabs{ margin-bottom:12px }
+    .tabs .segmented{ grid-template-columns: repeat(2, 1fr) }
+    
+    .features{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 16px;margin-top:10px;padding:0}
+    .features li{list-style:none;display:flex;align-items:flex-start;gap:.5rem;padding:0;font-size:14px;line-height:1.35;color:var(--ink)}
+    .features li::before{content:'';flex:0 0 6px;width:6px;height:6px;border-radius:50%;background:var(--sand);margin-top:.35em}
+
+    /* ===== Cards: inline carousel (πολλαπλές εικόνες) ===== */
+    .card .img{ position:relative }
+    .card .img img{
+      position:absolute; inset:0;
+      width:100%; height:100%; object-fit:cover; display:block;
+      opacity:0; transition:opacity .35s ease;
+    }
+    .card .img img.is-active{ opacity:1 }
+
+    /* Προαιρετικό: μικρές τελίτσες κατάστασης */
+    .card .img .dots{
+      position:absolute; left:50%; bottom:8px; transform:translateX(-50%);
+      display:flex; gap:6px; z-index:2; pointer-events:none;
+    }
+    .card .img .dot{
+      width:6px; height:6px; border-radius:999px;
+      background: rgba(255,255,255,.55);
+    }
+    .card .img .dot.is-active{ background:#fff }
+
+    /* ===== Boat title layout===== */
+    .boat-head{
+      text-align:center;
+      margin-bottom: 8px;
+    }
+
+    .boat-name{
+      margin: 0;
+      font-weight: 900;
+      letter-spacing: .2px;
+    }
+
+    .boat-specs{
+      margin-top: 4px;
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--ink-soft);
+    }
+
+
+
+    /* ===== Lightbox ===== */
+    .lb-backdrop{
+      position:fixed; inset:0; z-index:2000;
+      background: rgba(0,0,0,.88);
+      display:flex; align-items:center; justify-content:center;
+    }
+    .lb-backdrop[hidden]{ display:none }
+    .lb-dialog{ position:relative; width:min(92vw, 1100px); }
+    .lb-figure{
+      position:relative; background:#000; border-radius:12px; overflow:hidden;
+      aspect-ratio: 16/10;  /* κρατάει ωραίο frame στα desktop */
+    }
+    .lb-figure img{
+      width:100%; height:100%; object-fit:contain; background:#000; display:block;
+    }
+    .lb-close, .lb-prev, .lb-next{
+      position:absolute; top:50%; transform:translateY(-50%);
+      width:44px; height:44px; border:none; border-radius:999px; cursor:pointer;
+      display:grid; place-items:center; color:#fff; background: rgba(255,255,255,.18);
+      box-shadow:0 6px 20px rgba(0,0,0,.35);
+      backdrop-filter: blur(2px);
+    }
+    .lb-prev{ left:10px } .lb-next{ right:10px }
+    .lb-close{
+      top:10px; right:10px; transform:none; width:40px; height:40px; 
+    }
+    .lb-close:hover, .lb-prev:hover, .lb-next:hover{ background: rgba(255,255,255,.28) }
+
+    /* Mobile polish */
+    @media (max-width:640px){
+      .lb-dialog{ width:100vw }
+      .lb-figure{ aspect-ratio:auto; height: 86svh }
+    }
+
+    /* ===== Fleet toggle switch (SPEEDBOATS / LICENCE-FREE) ===== */
+    .fleet-toggle{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      margin: .25rem 0 1rem;
+    }
+
+    .switch{
+      position:relative;
+      display:inline-flex;
+      align-items:center;
+    }
+
+    .switch input{
+      position:absolute;
+      opacity:0;
+      width:1px;
+      height:1px;
+    }
+
+    .switch .track{
+      position:relative;
+      width: min(100vw, 362.6px);        /* TODO 70vw */
+      height:40px;
+      border-radius:999px;
+      background:var(--sand);
+      border:1px solid color-mix(in oklab, var(--sand), black 10%);
+      box-shadow:0 6px 20px rgba(0,0,0,.12);
+      padding-inline:18px;                    /* “τραβάει” τα labels προς τις άκρες */
+    }
+
+    .switch .option{
+      position:absolute;
+      top:50%;
+      transform:translateY(-50%);
+      max-width:45%;
+      font-weight:800;
+      font-size:.9rem;
+      letter-spacing:.2px;
+      user-select:none;
+      pointer-events:none;
+      color:var(--ink-soft);
+      white-space:nowrap;                     /* κρατάει το κείμενο σε μία γραμμή */
+    }
+
+    .switch .option-left{
+      left:18px;                              /* αριστερό label κοντά στην άκρη */
+      text-align:left;
+    }
+
+    .switch .option-right{
+      right:18px;                             /* δεξί label κοντά στην άλλη άκρη */
+      text-align:right;
+    }
+
+
+    .switch .option.active{
+      color:var(--ink);
+    }
+
+    .switch .knob{
+      position:absolute;
+      top:50%;
+      left:4px; /* θέση όταν είναι στα SPEEDBOATS */
+      transform:translateY(-50%);
+      width:calc(50% - 8px);
+      height:32px;
+      border-radius:999px;
+      box-sizing:border-box;
+      background-color: color-mix(in oklab, var(--sea) 60%, transparent); /* η φοσκα!!!*/
+      border:1px solid color-mix(in oklab, var(--sea), black 12%);
+      box-shadow:0 4px 14px rgba(0,0,0,.18);
+      transition:left .24s ease;
+    }
+
+    /* όταν γυρίζει στα LICENCE-FREE */
+    .switch input:checked + .track .knob{
+      left:calc(50% + 4px);
+    }
+
+    /*Οταν δεν εχω "hero" offset κάτω από fixed header */
+    .page-offset{
+      padding-top: var(--header-h);
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- ===== Header ===== -->
+  <header class="site-header">
+    <div class="container nav" id="nav">
+      <a href="index.html" class="brand">
+        <img src="assets/logo.svg" alt="Nireys • Seazen logo" class="brand-logo"/>
+        <div class="brand-title">Nireys • Seazen</div>
+      </a>
+      <button class="mobile-toggle" aria-label="Μενού">☰</button>
+      <ul>
+        <li><a href="fleet.html" aria-current="page">Στόλος</a></li>
+        <li><a href="about.html">Πληροφορίες</a></li>
+        <li><a href="contact.html">Επικοινωνία</a></li>
+      </ul>
+      <a class="lang-toggle" href="fleet.en.html" hreflang="en" aria-label="Switch to English">
+        <svg class="lang-toggle__globe" viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          <path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18" fill="none" stroke="currentColor" stroke-width="1.6"/>
+        </svg>
+        EN
+      </a>
+    </div>
+  </header>
+
+
+  <main class="page-offset">
+    <section class="section" aria-labelledby="fleet-title">
+      <div class="container">
+        <h2 id="fleet-title" style="text-align:center">Στόλος</h2>
+        <p class="sub" style="text-align:center; margin-top:-4px">Διαλέξτε κατηγορία</p>
+
+        <!-- ===== Flicker / Tabs (SPEEDBOATS vs LICENCE FREE) ===== -->
+        <div class="tabs">
+          <section id="fleet-toggle" class="fleet-toggle" role="group" aria-label="Κατηγορίες σκαφών">
+            <label class="switch" for="fleetToggle">
+              <input
+                type="checkbox"
+                id="fleetToggle"
+                aria-controls="panel-speed panel-licfree"
+                aria-label="Εναλλαγή μεταξύ Speedboats και σκαφών χωρίς δίπλωμα"
+              />
+              <span class="track" aria-hidden="true">
+                <span id="tab-speed-label" class="option option-left active">SPEEDBOATS</span>
+                <span id="tab-licfree-label" class="option option-right">LICENCE-FREE BOATS</span>
+                <span class="knob"></span>
+              </span>
+            </label>
+          </section>
+        </div>
+
+        <!-- ===== SPEEDBOATS ===== -->
+        <div id="panel-speed" class="panel" role="tabpanel" aria-labelledby="tab-speed-label">
+          <div class="card-grid" id="speedboats"></div>
+        </div>
+
+        <!-- ===== LICENCE FREE ===== -->
+        <div id="panel-licfree" class="panel hidden" role="tabpanel" aria-labelledby="tab-licfree-label">
+          <div class="card-grid" id="licence-free"></div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" aria-label="Footer">
+    <div class="container">
+
+      <div class="footer-inner">
+
+        <!-- Brand / short intro -->
+        <div class="footer-col footer-col--brand">
+          <a class="footer-logo" href="index.html" aria-label="Nireys • Seazen Boat Rentals (Στόλος)">
+            <img src="assets/logo.svg" alt="Nireys • Seazen logo">
+            <span>Nireys • Seazen Boat Rentals</span>
+          </a>
+
+          <p class="footer-tagline">
+            Ενοικιάσεις σκαφών &amp; ιδιωτικές κρουαζιέρες στα Σύβοτα — εύκολα, ασφαλές, αξέχαστα.
+          </p>
+
+          <div class="socials" aria-label="Social media">
+            <a href="https://www.instagram.com/seazenboats?igsh=MXNxYzJ4a2Ezd3Y5dg==" target="_blank" rel="noopener" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <rect x="6" y="6" width="12" height="12" rx="3" stroke="currentColor" stroke-width="1.8"/>
+                <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.8"/>
+                <circle cx="16.2" cy="7.8" r="1" fill="currentColor"/>
+              </svg>
+            </a>
+
+            <a href="https://www.tiktok.com/@seazenboats?_t=8lZWLbHML3J&_r=1" target="_blank" rel="noopener" aria-label="TikTok">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path fill="currentColor" d="M16.7 3c.4 3 2.2 4.8 5.3 5.1v3.2c-1.9.1-3.6-.5-5.2-1.7v7.3c0 4.1-3.3 7.1-7.4 7.1-4.3 0-7.4-3.4-7.4-7.5 0-4.1 3.2-7.5 7.6-7.5.5 0 1 .1 1.5.2v3.5c-.5-.2-1-.4-1.6-.4-2.2 0-4 1.8-4 4.1s1.8 4.1 4 4.1c2.3 0 3.9-1.5 4-4.1V3h3.2Z"/>
+              </svg>
+            </a>
+
+            <a href="https://www.facebook.com/nireysyachting" target="_blank" rel="noopener" aria-label="Facebook">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path fill="currentColor" d="M13.6 21v-7h2.3l.4-2.7h-2.7V9.6c0-.8.2-1.3 1.3-1.3H16V5.9c-.2 0-1.3-.1-2.5-.1-2.4 0-4 1.5-4 4.2v1.3H7.2V14h2.3v7h4.1Z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Links -->
+        <nav class="footer-col footer-col--links" aria-label="Γρήγοροι σύνδεσμοι">
+          <div class="footer-title">Σύνδεσμοι</div>
+          <ul class="footer-list">
+            <li><a href="fleet.html">Στόλος</a></li>
+            <li><a href="about.html">Πληροφορίες</a></li>
+            <li><a href="contact.html">Επικοινωνία</a></li>
+            <li><a href="safety.html">Ασφάλεια</a></li>
+            <li><a href="terms.html">Όροι &amp; Προϋποθέσεις</a></li>
+          </ul>
+        </nav>
+
+        <!-- Contact -->
+        <div class="footer-col footer-col--contact">
+          <div class="footer-title">Επικοινωνία</div>
+          <ul class="footer-list">
+            <li><a href="tel:+306934131116">Τηλ: 693 4131 116</a></li>
+            <li><a href="tel:+306955564733">Τηλ: 695 5564 733</a></li>
+            <li><a href="https://wa.me/306955564733" target="_blank" rel="noopener">WhatsApp: <span style="white-space:nowrap">695 5564 733</span></a></li>
+            <li><a href="mailto:seazenboats@gmail.com">seazenboats@gmail.com</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <div>© 2025 Nireys • Seazen Boat Rentals — Σύβοτα</div>
+        <div class="footer-legal">
+          <a href="safety.html">Ασφάλεια</a>
+          <span aria-hidden="true">•</span>
+          <a href="terms.html">Όροι &amp; Προϋποθέσεις</a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <script src="scripts/scripts.js"></script>
+  <script src="scripts/fleet-loader.js"></script>
+
+</body>
+</html>
