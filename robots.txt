@@ -1,0 +1,10 @@
+# Nireys • Seazen Boat Rentals — Sivota
+# Allow all crawlers full access.
+
+User-agent: *
+Allow: /
+
+# Disallow nothing — but block obvious noise:
+Disallow: /*.json$
+
+Sitemap: https://www.nireyssivota.com/sitemap.xml
